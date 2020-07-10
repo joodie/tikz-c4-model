@@ -1,0 +1,98 @@
+% A C4 node contains 3 text parts: text (name), lower,
+% and description.
+%
+% text is the default part of a node, the technology and description
+% part are specific to C4 and need special handling below
+
+\newbox\pgfnodeparttechnologybox
+\newbox\pgfnodepartdescriptionbox
+
+\pgfdeclareshape{c4 rectangle}{
+  \nodeparts{text,technology,description}%
+  \inheritsavedanchors[from=rectangle] % this is nearly a rectangle
+  \inheritanchorborder[from=rectangle]
+  \inheritanchor[from=rectangle]{center}
+  \inheritanchor[from=rectangle]{north}
+  \inheritanchor[from=rectangle]{south}
+  \inheritanchor[from=rectangle]{west}
+  \inheritanchor[from=rectangle]{east}
+
+  % Each of the node parts will be placed on an anchor (not a *saved*
+  % anchor!) named after the part
+
+  \savedanchor\technologypoint{%
+    \pgf@x=-.5\wd\pgfnodeparttechnologybox%
+    \advance\pgf@x by.5\wd\pgfnodeparttextbox%
+    \pgfmathsetlength{\pgf@y}{\pgfkeysvalueof{/pgf/inner ysep}}%
+    \pgf@y=-2\pgf@y%
+    \advance\pgf@y by-\ht\pgfnodeparttechnologybox%
+    \advance\pgf@y by-.5\pgflinewidth%
+    \advance\pgf@y by-\dp\pgfnodeparttextbox%
+    \advance\pgf@y by-.5\pgflinewidth%
+  }%
+  \anchor{technology}{\technologypoint}%
+
+  \savedanchor\descriptionpoint{%
+    \pgf@x=-.5\wd\pgfnodepartdescriptionbox%
+    \advance\pgf@x by.5\wd\pgfnodeparttextbox%
+    \pgfmathsetlength{\pgf@y}{\pgfkeysvalueof{/pgf/inner ysep}}%
+    \pgf@y=-4\pgf@y%
+    \advance\pgf@y by-\ht\pgfnodepartdescriptionbox%
+    \advance\pgf@y by-.5\pgflinewidth%
+    \advance\pgf@y by-\ht\pgfnodeparttechnologybox%
+    \advance\pgf@y by-\dp\pgfnodeparttechnologybox%
+    \advance\pgf@y by-.5\pgflinewidth%
+    \advance\pgf@y by-\dp\pgfnodeparttextbox%
+    \advance\pgf@y by-.5\pgflinewidth%
+  }%
+  \anchor{description}{\descriptionpoint}%
+
+  % ... and possibly more
+  \backgroundpath{% this is new
+    % store lower right in xa/ya and upper right in xb/yb
+    \technologypoint \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+    % compute corner of ``flipped page''
+    \pgf@xc=\pgf@xb \advance\pgf@xc by-5pt % this should be a parameter
+    \pgf@yc=\pgf@yb \advance\pgf@yc by-5pt
+    % construct main path
+    \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+    \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+    \pgfpathclose
+    % add little corner
+    \pgfpathmoveto{\pgfpoint{\pgf@xc}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}
+    \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+  }
+}
+
+\pgfdeclareshape{c4 person}{
+  \inheritsavedanchors[from=rectangle] % this is nearly a rectangle
+  \inheritanchorborder[from=rectangle]
+  \inheritanchor[from=rectangle]{center}
+  \inheritanchor[from=rectangle]{north}
+  \inheritanchor[from=rectangle]{south}
+  \inheritanchor[from=rectangle]{west}
+  \inheritanchor[from=rectangle]{east}
+  % ... and possibly more
+  \backgroundpath{% this is new
+    % store lower left in xa/ya and upper right in xb/yb
+    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+    % compute corner of ``flipped page''
+
+    \pgf@xc=.5\wd\pgfnodeparttextbox%
+    \pgf@yc=\pgf@yb \advance\pgf@yc by 5mm
+
+    \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+    \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+    \pgfpathclose
+
+    \pgfpathcircle{\pgfpoint{\pgf@xc}{\pgf@yc}}{6mm}
+  }
+}

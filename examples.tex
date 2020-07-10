@@ -1,0 +1,30 @@
+\documentclass{article}
+%\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, c4}
+
+
+% \definecolor{c4personcolor}{HTML}{08427B}
+% \definecolor{c4systemcolor}{HTML}{1178bd}
+% \definecolor{c4existingsystemcolor}{HTML}{999999}
+% \definecolor{c4containercolor}{HTML}{3c7fc0}
+% \definecolor{c4componentcolor}{HTML}{85bbf0}
+
+
+\title{C4 examples}
+\author{Joost Diepenmaat}
+\date{June 2020}
+
+\begin{document}
+
+\maketitle
+
+\begin{tikzpicture}
+%  \draw[c4personcolor] (0,0) -- (1,1) -- (2,-1) -- cycle;
+  \draw (1,1) node[shape=c4 rectangle, draw, align=left]{
+    Foo \nodepart{technology} Person \nodepart{description} Some
+    description\\On some lines};
+  \draw (3,1) node[shape=c4 person,draw, align=center]{System};
+\end{tikzpicture}
+
+\end{document}
