@@ -9,8 +9,112 @@
 
 \pgfdeclareshape{c4 rectangle}{
   \nodeparts{text,technology,description}%
-  \inheritsavedanchors[from=rectangle] % this is nearly a rectangle
-  \inheritanchorborder[from=rectangle]
+
+  % Nodes are centered on their label (text part)
+  % Text parts are horizontally centered
+
+  \savedanchor\northeast{%
+    % Calculate x
+    %
+    % set x to the width of the widest box
+    \pgf@x=\the\wd\pgfnodeparttextbox%
+    \pgf@xc=\the\wd\pgfnodeparttechnologybox%
+    \ifdim\pgf@x<\pgf@xc%
+    \pgf@x=\pgf@xc%
+    \fi%
+    \pgf@xc=\the\wd\pgfnodepartdescriptionbox%
+    \ifdim\pgf@x<\pgf@xc%
+    \pgf@x=\pgf@xc%
+    \fi%
+    % store widest width in @xb
+    \pgf@xb=\pgf@x%
+    %
+    % append margins
+    \pgfmathsetlength\pgf@xc{\pgfkeysvalueof{/pgf/inner xsep}}%
+    \advance\pgf@x by 2\pgf@xc%
+    % check if not smaller than minimum width
+    \pgfmathsetlength\pgf@xc{\pgfkeysvalueof{/pgf/minimum width}}%
+    \ifdim\pgf@x<\pgf@xc%
+    % yes, too small. Enlarge...
+    \pgf@x=\pgf@xc%
+    \fi%
+    %
+    % Now, calculate right border: .5 widest box + .5 \pgf@x + outer sep
+    \pgf@x=.5\pgf@x%
+    \advance\pgf@x by.5\pgf@xb%
+    \pgfmathsetlength\pgf@xa{\pgfkeysvalueof{/pgf/outer xsep}}%
+    \advance\pgf@x by\pgf@xa%
+    % Calculate y
+    %
+    % TODO: take height of other parts in account here
+    % First, is height+depth < minimum height?
+    \pgf@y=\ht\pgfnodeparttextbox%
+    \advance\pgf@y by\dp\pgfnodeparttextbox%
+    \pgfmathsetlength\pgf@yc{\pgfkeysvalueof{/pgf/inner ysep}}%
+    \advance\pgf@y by 2\pgf@yc%
+    \pgfmathsetlength\pgf@yb{\pgfkeysvalueof{/pgf/minimum height}}%
+    \ifdim\pgf@y<\pgf@yb%
+    % yes, too small. Enlarge...
+    \pgf@y=\pgf@yb%
+    \fi%
+    % Now, calculate upper border: .5\ht-.5\dp + .5 \pgf@y + outer sep
+    \pgf@y=.5\pgf@y%
+    \advance\pgf@y by-.5\dp\pgfnodeparttextbox%
+    \advance\pgf@y by.5\ht\pgfnodeparttextbox%
+    \pgfmathsetlength\pgf@ya{\pgfkeysvalueof{/pgf/outer ysep}}%
+    \advance\pgf@y by\pgf@ya%
+  }%
+
+  \savedanchor\southwest{%
+    % Calculate x
+    %
+    % set x to the width of the widest box
+    \pgf@x=\the\wd\pgfnodeparttextbox%
+    \pgf@xc=\the\wd\pgfnodeparttechnologybox%
+    \ifdim\pgf@x<\pgf@xc%
+    \pgf@x=\pgf@xc%
+    \fi%
+    \pgf@xc=\the\wd\pgfnodepartdescriptionbox%
+    \ifdim\pgf@x<\pgf@xc%
+    \pgf@x=\pgf@xc%
+    \fi%
+    % store widest width in @xb
+    \pgf@xb=\pgf@x%
+    %
+    % append margins
+    \pgfmathsetlength\pgf@xc{\pgfkeysvalueof{/pgf/inner xsep}}%
+    \advance\pgf@x by 2\pgf@xc%
+    % check if not smaller than minimum width
+    \pgfmathsetlength\pgf@xc{\pgfkeysvalueof{/pgf/minimum width}}%
+    \ifdim\pgf@x<\pgf@xc%
+    % yes, too small. Enlarge...
+    \pgf@x=\pgf@xc%
+    \fi%
+    % Now, calculate left border: .5 widest part - .5 \pgf@x - outer sep
+    \pgf@x=-.5\pgf@x%
+    \advance\pgf@x by.5\pgf@xb
+    \pgfmathsetlength\pgf@xa{\pgfkeysvalueof{/pgf/outer xsep}}%
+    \advance\pgf@x by-\pgf@xa%
+      % Calculate y
+      %
+      % First, is height+depth < minimum height?
+      \pgf@y=\ht\pgfnodeparttextbox%
+      \advance\pgf@y by\dp\pgfnodeparttextbox%
+      \pgfmathsetlength\pgf@yc{\pgfkeysvalueof{/pgf/inner ysep}}%
+      \advance\pgf@y by 2\pgf@yc%
+      \pgfmathsetlength\pgf@yb{\pgfkeysvalueof{/pgf/minimum height}}%
+      \ifdim\pgf@y<\pgf@yb%
+        % yes, too small. Enlarge...
+        \pgf@y=\pgf@yb%
+      \fi%
+       % Now, calculate upper border: .5\ht-.5\dp - .5 \pgf@y - outer sep
+      \pgf@y=-.5\pgf@y%
+      \advance\pgf@y by-.5\dp\pgfnodeparttextbox%
+      \advance\pgf@y by.5\ht\pgfnodeparttextbox%
+      \pgfmathsetlength\pgf@ya{\pgfkeysvalueof{/pgf/outer ysep}}%
+      \advance\pgf@y by-\pgf@ya%
+  }%
+
   \inheritanchor[from=rectangle]{center}
   \inheritanchor[from=rectangle]{north}
   \inheritanchor[from=rectangle]{south}
@@ -50,7 +154,7 @@
   % ... and possibly more
   \backgroundpath{% this is new
     % store lower right in xa/ya and upper right in xb/yb
-    \technologypoint \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
     \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
     % compute corner of ``flipped page''
     \pgf@xc=\pgf@xb \advance\pgf@xc by-5pt % this should be a parameter

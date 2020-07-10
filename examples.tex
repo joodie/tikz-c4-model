@@ -23,8 +23,13 @@
 %  \draw[c4personcolor] (0,0) -- (1,1) -- (2,-1) -- cycle;
   \draw (1,1) node[shape=c4 rectangle, draw, align=left]{
     Foo \nodepart{technology} Person \nodepart{description} Some
-    description\\On some lines};
+    description On some lines};
+
+  \draw (1,1) node[shape=circle, draw]{};
+
+  \draw (1,1) node[shape=rectangle,minimum width=1cm,minimum height=1cm,draw]{};
   \draw (3,1) node[shape=c4 person,draw, align=center]{System};
+  \draw (3,1) node[shape=circle, draw]{};
 \end{tikzpicture}
 
 \end{document}
