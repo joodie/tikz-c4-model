@@ -1,5 +1,5 @@
 \documentclass{article}
-%\usepackage{xcolor}
+% \usepackage{xcolor}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, c4}
 
@@ -20,7 +20,7 @@
 \maketitle
 
 \begin{tikzpicture}
-%  \draw[c4personcolor] (0,0) -- (1,1) -- (2,-1) -- cycle;
+  % \draw[c4personcolor] (0,0) -- (1,1) -- (2,-1) -- cycle;
   \draw (1,1) node[shape=c4 rectangle, draw, align=left]{
     Foo \nodepart{technology} Person \nodepart{description} Some
     description On some lines};
@@ -31,5 +31,6 @@
   \draw (3,1) node[shape=c4 person,draw, align=center]{System};
   \draw (3,1) node[shape=circle, draw]{};
 \end{tikzpicture}
+
 
 \end{document}

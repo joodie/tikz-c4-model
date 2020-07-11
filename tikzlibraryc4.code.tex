@@ -95,24 +95,28 @@
     \advance\pgf@x by.5\pgf@xb
     \pgfmathsetlength\pgf@xa{\pgfkeysvalueof{/pgf/outer xsep}}%
     \advance\pgf@x by-\pgf@xa%
-      % Calculate y
-      %
-      % First, is height+depth < minimum height?
-      \pgf@y=\ht\pgfnodeparttextbox%
-      \advance\pgf@y by\dp\pgfnodeparttextbox%
-      \pgfmathsetlength\pgf@yc{\pgfkeysvalueof{/pgf/inner ysep}}%
-      \advance\pgf@y by 2\pgf@yc%
-      \pgfmathsetlength\pgf@yb{\pgfkeysvalueof{/pgf/minimum height}}%
-      \ifdim\pgf@y<\pgf@yb%
-        % yes, too small. Enlarge...
-        \pgf@y=\pgf@yb%
-      \fi%
-       % Now, calculate upper border: .5\ht-.5\dp - .5 \pgf@y - outer sep
-      \pgf@y=-.5\pgf@y%
-      \advance\pgf@y by-.5\dp\pgfnodeparttextbox%
-      \advance\pgf@y by.5\ht\pgfnodeparttextbox%
-      \pgfmathsetlength\pgf@ya{\pgfkeysvalueof{/pgf/outer ysep}}%
-      \advance\pgf@y by-\pgf@ya%
+     % Calculate y
+    %
+    % First, is height+depth < minimum height?
+    \pgfmathsetlength{\pgf@y}{\pgfkeysvalueof{/pgf/inner ysep}}%
+    \pgf@y=4\pgf@y%
+    \advance\pgf@y by \ht\pgfnodepartdescriptionbox%
+    \advance\pgf@y by 1.5\pgflinewidth%
+    \advance\pgf@y by \ht\pgfnodeparttechnologybox%
+    \advance\pgf@y by \dp\pgfnodeparttechnologybox%
+    \advance\pgf@y by \dp\pgfnodeparttextbox%
+    \advance\pgf@y by \ht\pgfnodeparttextbox%
+    \pgfmathsetlength\pgf@yb{\pgfkeysvalueof{/pgf/minimum height}}%
+    \ifdim\pgf@y<\pgf@yb%
+      % yes, too small. Enlarge...
+      \pgf@y=\pgf@yb%
+    \fi%
+    % Now, calculate upper border: .5\ht-.5\dp - .5 \pgf@y - outer sep
+    \pgf@y=-.5\pgf@y%
+    \advance\pgf@y by-.5\dp\pgfnodeparttextbox%
+    \advance\pgf@y by.5\ht\pgfnodeparttextbox%
+    \pgfmathsetlength\pgf@ya{\pgfkeysvalueof{/pgf/outer ysep}}%
+    \advance\pgf@y by-\pgf@ya%
   }%
 
   \inheritanchor[from=rectangle]{center}
