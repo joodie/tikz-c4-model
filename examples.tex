@@ -1,15 +1,6 @@
 \documentclass{article}
-% \usepackage{xcolor}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, c4}
-
-
-% \definecolor{c4personcolor}{HTML}{08427B}
-% \definecolor{c4systemcolor}{HTML}{1178bd}
-% \definecolor{c4existingsystemcolor}{HTML}{999999}
-% \definecolor{c4containercolor}{HTML}{3c7fc0}
-% \definecolor{c4componentcolor}{HTML}{85bbf0}
-
 
 \title{C4 examples}
 \author{Joost Diepenmaat}
@@ -21,16 +12,19 @@
 
 \begin{tikzpicture}
   % \draw[c4personcolor] (0,0) -- (1,1) -- (2,-1) -- cycle;
-  \draw (1,1) node[shape=c4 rectangle, draw, align=left]{
-    Foo \nodepart{technology} Person \nodepart{description} Some
-    description On some lines};
+  \draw (1,1) node[shape=c4 rectangle, draw, align=left, anchor=name]{
+    \nodepart{name}Internet Banking System
+    \nodepart{technology}System
+    \nodepart{description} Some
+    description\\On some lines};
 
-  \draw (1,1) node[shape=circle, draw]{};
+ % \draw (1,1) node[shape=circle, draw]{};
 
-  \draw (1,1) node[shape=rectangle,minimum width=1cm,minimum height=1cm,draw]{};
-  \draw (3,1) node[shape=c4 person,draw, align=center]{System};
-  \draw (3,1) node[shape=circle, draw]{};
+%  \draw (1,1) node[shape=rectangle,minimum width=1cm,minimum height=1cm,draw]{};
+%  \draw (3,1) node[shape=c4 person,draw, align=center]{System};
+  \draw (1,1) node[shape=circle, draw, anchor=text]{1};
+  \draw (2,1) node[shape=circle, draw, anchor=text]{2};
+  \draw (3,1) node[shape=circle, draw, anchor=text
+  ]{3};
 \end{tikzpicture}
-
-
 \end{document}
