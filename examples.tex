@@ -20,13 +20,14 @@
     information about their bank\\
   accounts, and make payments};
 
-  \draw (5,0 ) node[c4 existing system] (es) {
+  \draw (9,0) node[c4 existing system] (es) {
     \nodepart{name}\textbf{E-Mail System}
     \nodepart{technology}\textit{[Software System]}
     \nodepart{description}The internal Microsoft Exchange\\
     Email System};
 
-  \draw [->, color=c4existingsystemcolor!80!black] (ibs.east) -- (es.west);
+  \draw [->, draw=c4existingsystemcolor!80!black, thick] (ibs.east)
+  -- (es.west) node[anchor=south east] {Sends E-Mail using};
   
 
 \end{tikzpicture}
