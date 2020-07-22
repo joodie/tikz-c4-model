@@ -13,11 +13,21 @@
 
 \begin{tikzpicture}
   % \draw[c4personcolor] (0,0) -- (1,1) -- (2,-1) -- cycle;
-  \draw (1,1) node[shape=c4 rectangle, draw, align=left, anchor=name,
-  fill=c4systemcolor, text=white, draw=c4systemcolor!60!black]{
+  \draw (0,0) node[c4 system] (ibs) {x
     \nodepart{name}\textbf{Internet Banking System}
-    \nodepart{technology}\textit{[System]}
-    \nodepart{description}Some description\\ On some lines};
+    \nodepart{technology}\textit{[Software System]}
+    \nodepart{description}Allows customers to view\\
+    information about their bank\\
+  accounts, and make payments};
+
+  \draw (5,0 ) node[c4 existing system] (es) {
+    \nodepart{name}\textbf{E-Mail System}
+    \nodepart{technology}\textit{[Software System]}
+    \nodepart{description}The internal Microsoft Exchange\\
+    Email System};
+
+  \draw [->, color=c4existingsystemcolor!80!black] (ibs.east) -- (es.west);
+  
 
 \end{tikzpicture}
 \end{document}

@@ -117,14 +117,13 @@
     %
     \pgfmathsetlength{\pgf@y}{\pgfkeysvalueof{/pgf/inner ysep}}%
     % TODO: check if technology or description is empty
-    \pgf@y=6\pgf@y%
+    \pgf@y=4\pgf@y%
     \advance\pgf@y by \ht\pgfnodepartnamebox%
     \advance\pgf@y by \dp\pgfnodepartnamebox%
     \advance\pgf@y by \ht\pgfnodeparttechnologybox%
     \advance\pgf@y by \dp\pgfnodeparttechnologybox%
     \advance\pgf@y by \ht\pgfnodepartdescriptionbox%
     \advance\pgf@y by \dp\pgfnodepartdescriptionbox%
-    \advance\pgf@y by 2\pgflinewidth%
     %
     \pgfmathsetlength\pgf@yb{\pgfkeysvalueof{/pgf/minimum height}}%
     \ifdim\pgf@y<\pgf@yb%
@@ -145,7 +144,8 @@
   \inheritanchor[from=rectangle]{east}
 
   % TODO: set or inherit anchorborder
-
+  \inheritanchorborder[from=rectangle]
+  
   % Each of the node parts will be placed on an anchor (not a *saved*
   % anchor!) named after the part
 
@@ -161,8 +161,7 @@
     \pgf@x=-.5\wd\pgfnodeparttechnologybox%
     %
     \pgfmathsetlength{\pgf@y}{\pgfkeysvalueof{/pgf/inner ysep}}%
-    \pgf@y=-2\pgf@y%
-    \advance\pgf@y by-\pgflinewidth%
+    \pgf@y=-\pgf@y%
     \advance\pgf@y by-.5\ht\pgfnodepartnamebox%
     \advance\pgf@y by-.5\dp\pgfnodepartnamebox%
     \advance\pgf@y by-\ht\pgfnodeparttechnologybox%
@@ -173,10 +172,9 @@
     \pgf@x=-.5\wd\pgfnodepartdescriptionbox%
     %
     \pgfmathsetlength{\pgf@y}{\pgfkeysvalueof{/pgf/inner ysep}}%
-    \pgf@y=-4\pgf@y%
+    \pgf@y=-2\pgf@y%
     \advance\pgf@y by-\ht\pgfnodeparttechnologybox%
     \advance\pgf@y by-\dp\pgfnodeparttechnologybox%
-    \advance\pgf@y by-2\pgflinewidth%
     \advance\pgf@y by-.5\ht\pgfnodepartnamebox%
     \advance\pgf@y by-.5\dp\pgfnodepartnamebox%
     \advance\pgf@y by-\ht\pgfnodepartdescriptionbox%
@@ -227,4 +225,17 @@
 
     \pgfpathcircle{\pgfpoint{\pgf@xc}{\pgf@yc}}{6mm}
   }
+}
+
+\tikzset{
+c4 system/.style={%
+shape=c4 rectangle, draw, fill=c4systemcolor,%
+text=white, draw=c4systemcolor!80!black, rounded corners=1ex,%
+align=left, inner sep=1em, scale=0.5%
+},
+c4 existing system/.style={%
+shape=c4 rectangle, draw, fill=c4existingsystemcolor,%
+text=white, draw=c4existingsystemcolor!80!black, rounded corners=1ex,%
+align=left, inner sep=1em, scale=0.5%
+}
 }
