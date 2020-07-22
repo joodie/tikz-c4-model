@@ -81,11 +81,8 @@
     \pgf@x=.5\pgf@x%
     % Calculate y
     %
-    % north y is at 0.5\ht\nodepartnamebox + 0.5\dpnodepartnamebox + inner
-    % ysep
     \pgfmathsetlength\pgf@y{\pgfkeysvalueof{/pgf/inner ysep}}%
-    \advance\pgf@y by \dp\pgfnodepartnamebox%
-    \advance\pgf@y by \ht\pgfnodepartnamebox%
+    \advance\pgf@y by .5\ht\pgfnodepartnamebox%
   }%
 
   \savedanchor\southwest{%
@@ -121,14 +118,13 @@
     \pgfmathsetlength{\pgf@y}{\pgfkeysvalueof{/pgf/inner ysep}}%
     % TODO: check if technology or description is empty
     \pgf@y=6\pgf@y%
-    \advance\pgf@y by \ht\pgfnodepartdescriptionbox%
-    \advance\pgf@y by 2\pgflinewidth%
-    \advance\pgf@y by \dp\pgfnodepartnamebox%
     \advance\pgf@y by \ht\pgfnodepartnamebox%
+    \advance\pgf@y by \dp\pgfnodepartnamebox%
     \advance\pgf@y by \ht\pgfnodeparttechnologybox%
     \advance\pgf@y by \dp\pgfnodeparttechnologybox%
     \advance\pgf@y by \ht\pgfnodepartdescriptionbox%
     \advance\pgf@y by \dp\pgfnodepartdescriptionbox%
+    \advance\pgf@y by 2\pgflinewidth%
     %
     \pgfmathsetlength\pgf@yb{\pgfkeysvalueof{/pgf/minimum height}}%
     \ifdim\pgf@y<\pgf@yb%
@@ -139,7 +135,6 @@
     \pgf@y=-\pgf@y
     \pgfmathsetlength\pgf@yb{\pgfkeysvalueof{/pgf/inner ysep}}%
     \advance\pgf@y by \pgf@yb
-    \advance\pgf@y by .5\dp\pgfnodepartnamebox%
     \advance\pgf@y by .5\ht\pgfnodepartnamebox%
   }%
 
@@ -148,6 +143,8 @@
   \inheritanchor[from=rectangle]{south}
   \inheritanchor[from=rectangle]{west}
   \inheritanchor[from=rectangle]{east}
+
+  % TODO: set or inherit anchorborder
 
   % Each of the node parts will be placed on an anchor (not a *saved*
   % anchor!) named after the part
@@ -165,11 +162,10 @@
     %
     \pgfmathsetlength{\pgf@y}{\pgfkeysvalueof{/pgf/inner ysep}}%
     \pgf@y=-2\pgf@y%
-    \advance\pgf@y by-.5\ht\pgfnodeparttechnologybox%
-    \advance\pgf@y by-.5\ht\pgfnodeparttechnologybox%
     \advance\pgf@y by-\pgflinewidth%
-    \advance\pgf@y by-.5\dp\pgfnodepartnamebox%
     \advance\pgf@y by-.5\ht\pgfnodepartnamebox%
+    \advance\pgf@y by-.5\dp\pgfnodepartnamebox%
+    \advance\pgf@y by-\ht\pgfnodeparttechnologybox%
   }%
   \anchor{technology}{\technologypoint}%
 
@@ -179,12 +175,11 @@
     \pgfmathsetlength{\pgf@y}{\pgfkeysvalueof{/pgf/inner ysep}}%
     \pgf@y=-4\pgf@y%
     \advance\pgf@y by-\ht\pgfnodeparttechnologybox%
-    \advance\pgf@y by-\ht\pgfnodeparttechnologybox%
+    \advance\pgf@y by-\dp\pgfnodeparttechnologybox%
     \advance\pgf@y by-2\pgflinewidth%
-    \advance\pgf@y by-.5\dp\pgfnodepartnamebox%
     \advance\pgf@y by-.5\ht\pgfnodepartnamebox%
-    \advance\pgf@y by-.5\ht\pgfnodepartdescriptionbox%
-    \advance\pgf@y by-.5\ht\pgfnodepartdescriptionbox%
+    \advance\pgf@y by-.5\dp\pgfnodepartnamebox%
+    \advance\pgf@y by-\ht\pgfnodepartdescriptionbox%
   }%
   \anchor{description}{\descriptionpoint}%
 
@@ -199,6 +194,10 @@
     \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
     \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
     \pgfpathclose
+
+    \namepoint
+    \pgfpathmoveto{\namepoint}
+    
   }
 }
 
