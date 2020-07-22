@@ -1,6 +1,6 @@
 \documentclass{article}
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric, c4}
+\usetikzlibrary{shapes.geometric, c4, positioning}
 % \renewcommand{\familydefault}{\sfdefault}
 \title{C4 examples}
 \author{Joost Diepenmaat}
@@ -11,25 +11,35 @@
 \maketitle
 
 
-\begin{tikzpicture}
+\begin{tikzpicture}[node distance=3cm]
   \footnotesize
   % \draw[c4personcolor] (0,0) -- (1,1) -- (2,-1) -- cycle;
-  \draw (0,0) node[c4 system] (ibs) {x
+  \draw node[c4 system] (ibs) {
     \nodepart{name}\textbf{Internet Banking System}
     \nodepart{technology}\textit{[Software System]}
     \nodepart{description}Allows customers to view\\
     information about their bank\\
   accounts, and make payments};
 
-  \draw (9,0) node[c4 existing system] (es) {
+  \draw node[c4 existing system, right=of ibs] (es) {
     \nodepart{name}\textbf{E-Mail System}
     \nodepart{technology}\textit{[Software System]}
     \nodepart{description}The internal Microsoft Exchange\\
     Email System};
 
-  \draw [->, draw=c4existingsystemcolor!80!black, thick] (ibs.east)
-  -- (es.west) node[anchor=south east] {Sends E-Mail using};
-  
+  \draw node[c4 existing system, below=of ibs] (mbs) {
+    \nodepart{name}\textbf{Mainframe Banking
+      System}
+    \nodepart{technology}\textit{[Software System]}
+    \nodepart{description}Stores all of the core banking\\
+    information about customers,\\
+    accounts, transactions, etc.};
+
+  \draw [->, draw=c4existingsystemcolor!80!black, thick] (ibs.east) to
+  [edge label=Sends E-Mail using] (es.west);
+
+  \draw [->, draw=c4existingsystemcolor!80!black, thick] (ibs.south) to [ edge
+  label=Uses] (mbs.north);
 
 \end{tikzpicture}
 \end{document}
