@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, c4}
- \renewcommand{\familydefault}{\sfdefault}
+% \renewcommand{\familydefault}{\sfdefault}
 \title{C4 examples}
 \author{Joost Diepenmaat}
 \date{June 2020}
@@ -13,7 +13,8 @@
 
 \begin{tikzpicture}
   % \draw[c4personcolor] (0,0) -- (1,1) -- (2,-1) -- cycle;
-  \draw (1,1) node[shape=c4 rectangle, draw, align=left, anchor=name]{
+  \draw (1,1) node[shape=c4 rectangle, draw, align=left, anchor=name,
+  fill=c4systemcolor, text=white, draw=c4systemcolor!60!black]{
     \nodepart{name}\textbf{Internet Banking System}
     \nodepart{technology}\textit{[System]}
     \nodepart{description}Some description\\ On some lines};
