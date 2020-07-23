@@ -237,31 +237,46 @@
 }
 
 \pgfdeclareshape{c4 person}{
-  \inheritsavedanchors[from=rectangle] % this is nearly a rectangle
-  \inheritanchorborder[from=rectangle]
-  \inheritanchor[from=rectangle]{center}
-  \inheritanchor[from=rectangle]{north}
-  \inheritanchor[from=rectangle]{south}
-  \inheritanchor[from=rectangle]{west}
-  \inheritanchor[from=rectangle]{east}
-  % ... and possibly more
+  \inheritsavedanchors[from=c4 rectangle] % this is nearly a rectangle
+  \inheritanchorborder[from=c4 rectangle]
+  \inheritanchor[from=c4 rectangle]{center}%
+  \inheritanchor[from=c4 rectangle]{north}%
+  \inheritanchor[from=c4 rectangle]{north east}%
+  \inheritanchor[from=c4 rectangle]{east}%
+  \inheritanchor[from=c4 rectangle]{south east}%
+  \inheritanchor[from=c4 rectangle]{south}%
+  \inheritanchor[from=c4 rectangle]{south west}%
+  \inheritanchor[from=c4 rectangle]{west}%
+  \inheritanchor[from=c4 rectangle]{north west}%
+  \inheritanchor[from=c4 rectangle]{mid west}%
+  \inheritanchor[from=c4 rectangle]{mid}%
+  \inheritanchor[from=c4 rectangle]{mid east}%
+  \inheritanchor[from=c4 rectangle]{base}%
+  \inheritanchor[from=c4 rectangle]{base west}%
+  \inheritanchor[from=c4 rectangle]{base east}%
+  \inheritanchor[from=c4 rectangle]{name}%
+  \inheritanchor[from=c4 rectangle]{description}%
+  \inheritanchor[from=c4 rectangle]{technology}%
+  \inheritanchorborder[from=c4 rectangle]
+  \nodeparts{name,technology,description}%
+
   \backgroundpath{% this is new
-    % store lower left in xa/ya and upper right in xb/yb
+    % store lower right in xa/ya and upper right in xb/yb
     \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
     \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-    % compute corner of ``flipped page''
-
-    \pgf@xc=.5\wd\pgfnodepartnamebox%
-    \pgf@yc=\pgf@yb \advance\pgf@yc by 5mm
-
+    % construct main path
     \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
     \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
     \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
     \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
     \pgfpathclose
 
-    \pgfpathcircle{\pgfpoint{\pgf@xc}{\pgf@yc}}{6mm}
+    \namepoint
+    \pgfpathmoveto{\namepoint}
+    
   }
+
+
 }
 
 \tikzset{
@@ -273,6 +288,16 @@ align=left, inner sep=1em%
 c4 existing system/.style={%
 shape=c4 rectangle, draw, fill=c4existingsystemcolor,%
 text=white, draw=c4existingsystemcolor!80!black, rounded corners=1ex,%
+align=left, inner sep=1em%
+},
+c4 person/.style={%
+shape=c4 person, draw, fill=c4personcolor,%
+text=white, draw=c4personcolor!80!black, rounded corners=1ex,%
+align=left, inner sep=1em%
+},
+c4 existing person/.style={%
+shape=c4 person, draw, fill=c4existingpersoncolor,%
+text=white, draw=c4existingpersoncolor!80!black, rounded corners=1ex,%
 align=left, inner sep=1em%
 }
 }
