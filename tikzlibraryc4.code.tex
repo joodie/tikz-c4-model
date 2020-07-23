@@ -165,17 +165,20 @@
   \anchor{base} {%
     \namepoint%
     \pgf@x=0cm%
-  }% TODO: This renders the same as mid east?!
+  }
+  %
   \anchor{base east} {%
+    \namepoint%
+    \pgf@yb=\pgf@y%
     \northeast%
-    \pgf@y=-.5\ht\pgfnodepartnamebox%
-    \advance\pgf@y by-.5\dp\pgfnodepartnamebox%
+    \pgf@y=\pgf@yb%
   }%
-  % TODO: This renders the same as mid west?!
+  %
   \anchor{base west} {%
+    \namepoint%
+    \pgf@yb=\pgf@y%
     \southwest%
-    \pgf@y=-.5\ht\pgfnodepartnamebox%
-    \advance\pgf@y by-.5\dp\pgfnodepartnamebox%
+    \pgf@y=\pgf@yb%
   }%
   %
   \inheritanchorborder[from=rectangle]
