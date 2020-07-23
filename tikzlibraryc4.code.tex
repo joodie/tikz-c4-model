@@ -136,14 +136,48 @@
     \advance\pgf@y by \pgf@yb
     \advance\pgf@y by .5\ht\pgfnodepartnamebox%
   }%
+  %
+  \inheritanchor[from=rectangle]{center}%
+  \inheritanchor[from=rectangle]{north}%
+  \inheritanchor[from=rectangle]{north east}%
+  \inheritanchor[from=rectangle]{east}%
+  \inheritanchor[from=rectangle]{south east}%
+  \inheritanchor[from=rectangle]{south}%
+  \inheritanchor[from=rectangle]{south west}%
+  \inheritanchor[from=rectangle]{west}%
+  \inheritanchor[from=rectangle]{north west}%
+  %
+  \anchor{mid} {%
+    \pgf@x=0cm%
+    \pgf@y=0cm%
+  }%
 
-  \inheritanchor[from=rectangle]{center}
-  \inheritanchor[from=rectangle]{north}
-  \inheritanchor[from=rectangle]{south}
-  \inheritanchor[from=rectangle]{west}
-  \inheritanchor[from=rectangle]{east}
+  \anchor{mid east} {%
+    \northeast%
+    \pgf@y=0cm%
+  }%
 
-  % TODO: set or inherit anchorborder
+  \anchor{mid west} {%
+    \southwest%
+    \pgf@y=0cm%
+  }%
+  %
+  \anchor{base} {%
+    \namepoint%
+    \pgf@x=0cm%
+  }% TODO: This renders the same as mid east?!
+  \anchor{base east} {%
+    \northeast%
+    \pgf@y=-.5\ht\pgfnodepartnamebox%
+    \advance\pgf@y by-.5\dp\pgfnodepartnamebox%
+  }%
+  % TODO: This renders the same as mid west?!
+  \anchor{base west} {%
+    \southwest%
+    \pgf@y=-.5\ht\pgfnodepartnamebox%
+    \advance\pgf@y by-.5\dp\pgfnodepartnamebox%
+  }%
+  %
   \inheritanchorborder[from=rectangle]
   
   % Each of the node parts will be placed on an anchor (not a *saved*
