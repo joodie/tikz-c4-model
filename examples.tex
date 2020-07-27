@@ -16,27 +16,35 @@
   % \draw[c4personcolor] (0,0) -- (1,1) -- (2,-1) -- cycle;
   
   \draw node[c4 system] (ibs) {
-    \centering\textbf{Internet Banking System}\\
-    \centering\textit{[Software System]}\\
+    {\centering\textbf{Internet Banking System}\\
+    \vspace{.5ex}
+    \centering\textit{[Software System]}\\}
+    \vspace{.5ex}
     Allows customers to view information
     about their bank accounts, and make payments};
 
   \draw node[c4 person, above=of ibs] (user) {
     \centering\textbf{Internet Banking User}\\
+    \vspace{.5ex}
     \centering\textit{[Person]}\\
+    \vspace{.5ex}
     Customers will view
     information about their bank
     accounts, and make payments};
   
   \draw node[c4 existing system, right=of ibs] (es) {
     \centering\textbf{E-Mail System}\\
+    \vspace{.5ex}
     \centering\textit{[Software System]}\\
+    \vspace{.5ex}
     The internal Microsoft Exchange
     Email System};
 
   \draw node[c4 existing system, below=of ibs] (mbs) {
     \centering\textbf{Mainframe Banking System}\\
+    \vspace{.5ex}
     \centering\textit{[Software System]}\\
+    \vspace{.5ex}
     Stores all of the core banking
     information about customers,
     accounts, transactions, etc.};
@@ -64,7 +72,9 @@
     \node[name=s,c4 existing system]
     {{\centering
         \textbf{name}\\
+        \vspace{.5ex}
         \textit{[technology]}\\}
+      \vspace{.5ex}
       Description on\\multiple lines};
 
     \foreach \anchor/\placement in{
@@ -84,8 +94,10 @@
     \Huge
     \node[name=s,c4 existing system]
     {{\centering
-      \textbf{A very extremely long name}\\
-      \textit{[technology]\\}}
+        \textbf{A very extremely long name}\\
+        \vspace{.5ex}
+        \textit{[technology]\\}}
+      \vspace{.5ex}
      Description on\\multiple lines};
 
     \foreach \anchor/\placement in{
@@ -106,7 +118,9 @@
     \node[name=s,c4 existing person]
     {{\centering
         \textbf{name}\\
+        \vspace{.5ex}
         \textit{[Person]}\\}
+      \vspace{.5ex}
       Description on\\multiple lines};
 
     \foreach \anchor/\placement in{
