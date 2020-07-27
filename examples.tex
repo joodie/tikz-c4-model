@@ -16,27 +16,27 @@
   % \draw[c4personcolor] (0,0) -- (1,1) -- (2,-1) -- cycle;
   
   \draw node[c4 system] (ibs) {
-    \textbf{Internet Banking System}\\
-    \textit{[Software System]}\\
+    \centering\textbf{Internet Banking System}\\
+    \centering\textit{[Software System]}\\
     Allows customers to view information
     about their bank accounts, and make payments};
 
   \draw node[c4 person, above=of ibs] (user) {
-    \textbf{Internet Banking User}\\
-    \textit{[Person]}\\
+    \centering\textbf{Internet Banking User}\\
+    \centering\textit{[Person]}\\
     Customers will view
     information about their bank
     accounts, and make payments};
   
   \draw node[c4 existing system, right=of ibs] (es) {
-    \textbf{E-Mail System}\\
-    \textit{[Software System]}\\
+    \centering\textbf{E-Mail System}\\
+    \centering\textit{[Software System]}\\
     The internal Microsoft Exchange
     Email System};
 
   \draw node[c4 existing system, below=of ibs] (mbs) {
-    \textbf{Mainframe Banking System}
-    \textit{[Software System]}
+    \centering\textbf{Mainframe Banking System}\\
+    \centering\textit{[Software System]}\\
     Stores all of the core banking
     information about customers,
     accounts, transactions, etc.};
@@ -47,6 +47,11 @@
   \draw [->, draw=c4existingsystemcolor!80!black, thick] (ibs.south) to [ edge
   label=Uses] (mbs.north);
 
+  \draw [->, draw=c4existingsystemcolor!80!black, thick] (user.south) to [ edge
+  label=Uses] (ibs.north);
+
+
+  
   % \draw [fit=(ibs, es, mbs), dashed, thick] {Big Bank PLC}
 
 \end{tikzpicture}
@@ -57,9 +62,10 @@
   \begin{tikzpicture}
     \Huge
     \node[name=s,c4 existing system]
-    {\textbf{name}\\
-     \textit{[technology]}\\
-     Description on\\multiple lines};
+    {{\centering
+        \textbf{name}\\
+        \textit{[technology]}\\}
+      Description on\\multiple lines};
 
     \foreach \anchor/\placement in{
       north west/above left, north/above, north east/above right, west/left, center/below, east/right,
@@ -77,8 +83,9 @@
   \begin{tikzpicture}
     \Huge
     \node[name=s,c4 existing system]
-    {\bf A very extremely long name\\
-     \it {[technology]}\\
+    {{\centering
+      \textbf{A very extremely long name}\\
+      \textit{[technology]\\}}
      Description on\\multiple lines};
 
     \foreach \anchor/\placement in{
@@ -97,8 +104,9 @@
   \begin{tikzpicture}
     \Huge
     \node[name=s,c4 existing person]
-    {\textbf{name}\\
-      \textit{[Person]}\\
+    {{\centering
+        \textbf{name}\\
+        \textit{[Person]}\\}
       Description on\\multiple lines};
 
     \foreach \anchor/\placement in{
