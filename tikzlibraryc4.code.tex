@@ -7,36 +7,22 @@
 \definecolor{c4containercolor}{HTML}{3c7fc0}
 \definecolor{c4componentcolor}{HTML}{85bbf0}
 
-% A C4 node contains 3 text parts: name, technology and description
-
-\newbox\pgfnodepartnamebox
-\newbox\pgfnodeparttechnologybox
-\newbox\pgfnodepartdescriptionbox
-
 % A C4 node is constructed vertically as follows:
 %
 % +-----------------
 % | head decoration      - horizontal line / head / browser bar...
 % | inner ysep
-% | nodepartname (centerpoint = origin)
+% | nodeparttext
 % | inner ysep
-% | line width           \
-% | inner ysep           |
-% | nodeparttechnology   | - if not blank
-% | inner ysep           /
-% | line width           \
-% | inner ysep           |
-% | nodepartdescription  | - if not blank
-% | inner ysep           /
 % | foot decoration      - just a line
 % +---------------
 %
 %
-% north y is at 0.5\ht\nodepartnamebox + 0.5\dpnodepartnamebox + inner
+% north y is at 0.5\ht\nodeparttextebox + inner
 % ysep
 %
-% south y is at 0.5\ht\nodepartnamebox + 0.5\dpnodepartnamebox + 4
-% inner yspep + technology + description + 2 line width
+% south y is at 0.5\ht\nodeparttextbox + \dpnodeparttextbox +
+% inner yspep
 %
 %
 % when a minimum height is set, this means that center point
@@ -48,27 +34,13 @@
 % The mininum height 
 
 \pgfdeclareshape{c4 rectangle}{
-  \nodeparts{name,technology,description}%
-
   % Nodes are centered on their label (text part)
   % Text parts are horizontally centered
-
   \savedanchor\northeast{%
     % Calculate x
     %
-    % set x to the width of the widest box
-    \pgf@x=\the\wd\pgfnodepartnamebox%
-    \pgf@xc=\the\wd\pgfnodeparttechnologybox%
-    \ifdim\pgf@x<\pgf@xc%
-    \pgf@x=\pgf@xc%
-    \fi%
-    \pgf@xc=\the\wd\pgfnodepartdescriptionbox%
-    \ifdim\pgf@x<\pgf@xc%
-    \pgf@x=\pgf@xc%
-    \fi%
-    % save widest width in @xb
-    \pgf@xb=\pgf@x%
-    %
+    % set x to the width of the text box
+    \pgf@x=\the\wd\pgfnodeparttextbox%
     % append margins
     \pgfmathsetlength\pgf@xc{\pgfkeysvalueof{/pgf/inner xsep}}%
     \advance\pgf@x by 2\pgf@xc%
@@ -83,25 +55,14 @@
     % Calculate y
     %
     \pgfmathsetlength\pgf@y{\pgfkeysvalueof{/pgf/inner ysep}}%
-    \advance\pgf@y by .5\ht\pgfnodepartnamebox%
+    \advance\pgf@y by .5\ht\pgfnodeparttextbox%
   }%
 
   \savedanchor\southwest{%
     % Calculate x
     %
-    % set x to the width of the widest box
-    \pgf@x=\the\wd\pgfnodepartnamebox%
-    \pgf@xc=\the\wd\pgfnodeparttechnologybox%
-    \ifdim\pgf@x<\pgf@xc%
-    \pgf@x=\pgf@xc%
-    \fi%
-    \pgf@xc=\the\wd\pgfnodepartdescriptionbox%
-    \ifdim\pgf@x<\pgf@xc%
-    \pgf@x=\pgf@xc%
-    \fi%
-    % store widest width in @xb
-    \pgf@xb=\pgf@x%
-    %
+    % set x to the width of the text box
+    \pgf@x=\the\wd\pgfnodeparttextbox%
     % append margins
     \pgfmathsetlength\pgf@xc{\pgfkeysvalueof{/pgf/inner xsep}}%
     \advance\pgf@x by 2\pgf@xc%
@@ -111,31 +72,27 @@
     % yes, too small. Enlarge...
     \pgf@x=\pgf@xc%
     \fi%
+    %
     \pgf@x=-.5\pgf@x%
     % Calculate y
     %
     % First, is total height < minimum height?
     %
     \pgfmathsetlength{\pgf@y}{\pgfkeysvalueof{/pgf/inner ysep}}%
-    % TODO: check if technology or description is empty
-    \pgf@y=4\pgf@y%
-    \advance\pgf@y by \ht\pgfnodepartnamebox%
-    \advance\pgf@y by \dp\pgfnodepartnamebox%
-    \advance\pgf@y by \ht\pgfnodeparttechnologybox%
-    \advance\pgf@y by \dp\pgfnodeparttechnologybox%
-    \advance\pgf@y by \ht\pgfnodepartdescriptionbox%
-    \advance\pgf@y by \dp\pgfnodepartdescriptionbox%
+    \pgf@y=2\pgf@y%
+    \advance\pgf@y by \ht\pgfnodeparttextbox%
+    \advance\pgf@y by \dp\pgfnodeparttextbox%
     %
     \pgfmathsetlength\pgf@yb{\pgfkeysvalueof{/pgf/minimum height}}%
     \ifdim\pgf@y<\pgf@yb%
       % yes, too small. Enlarge...
       \pgf@y=\pgf@yb%
     \fi%
-    % south y is full height minus top .. halfway nodepartnamebox
+    % south y is full height minus top .. halfway nodeparttextbox
     \pgf@y=-\pgf@y
     \pgfmathsetlength\pgf@yb{\pgfkeysvalueof{/pgf/inner ysep}}%
     \advance\pgf@y by \pgf@yb
-    \advance\pgf@y by .5\ht\pgfnodepartnamebox%
+    \advance\pgf@y by .5\ht\pgfnodeparttextbox%
   }%
   %
   \inheritanchor[from=rectangle]{center}%
@@ -164,60 +121,35 @@
   }%
   %
   \anchor{base} {%
-    \namepoint%
+    \textpoint%
     \pgf@x=0cm%
   }
   %
   \anchor{base east} {%
-    \namepoint%
+    \textpoint%
     \pgf@yb=\pgf@y%
     \northeast%
     \pgf@y=\pgf@yb%
   }%
   %
   \anchor{base west} {%
-    \namepoint%
+    \textpoint%
     \pgf@yb=\pgf@y%
     \southwest%
     \pgf@y=\pgf@yb%
   }%
   %
   \inheritanchorborder[from=rectangle]
-  
+
   % Each of the node parts will be placed on an anchor (not a *saved*
   % anchor!) named after the part
 
-  \savedanchor\namepoint{%
-    \pgf@x=-.5\wd\pgfnodepartnamebox%
-    \pgf@y=-.5\ht\pgfnodepartnamebox%
-    \advance\pgf@y by-.5\dp\pgfnodepartnamebox%
+  \savedanchor\textpoint{%
+    \pgf@x=-.5\wd\pgfnodeparttextbox%
+    \pgf@y=-.5\ht\pgfnodeparttextbox%
   }
 
-  \anchor{name}{\namepoint}%
-
-  \savedanchor\technologypoint{%
-    \pgf@x=-.5\wd\pgfnodeparttechnologybox%
-    %
-    \pgfmathsetlength{\pgf@y}{\pgfkeysvalueof{/pgf/inner ysep}}%
-    \pgf@y=-\pgf@y%
-    \advance\pgf@y by-.5\ht\pgfnodepartnamebox%
-    \advance\pgf@y by-.5\dp\pgfnodepartnamebox%
-    \advance\pgf@y by-\ht\pgfnodeparttechnologybox%
-  }%
-  \anchor{technology}{\technologypoint}%
-
-  \savedanchor\descriptionpoint{%
-    \pgf@x=-.5\wd\pgfnodepartdescriptionbox%
-    %
-    \pgfmathsetlength{\pgf@y}{\pgfkeysvalueof{/pgf/inner ysep}}%
-    \pgf@y=-2\pgf@y%
-    \advance\pgf@y by-\ht\pgfnodeparttechnologybox%
-    \advance\pgf@y by-\dp\pgfnodeparttechnologybox%
-    \advance\pgf@y by-.5\ht\pgfnodepartnamebox%
-    \advance\pgf@y by-.5\dp\pgfnodepartnamebox%
-    \advance\pgf@y by-\ht\pgfnodepartdescriptionbox%
-  }%
-  \anchor{description}{\descriptionpoint}%
+  \anchor{text}{\textpoint}%
 
   % ... and possibly more
   \backgroundpath{% this is new
@@ -230,10 +162,6 @@
     \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
     \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
     \pgfpathclose
-
-    \namepoint
-    \pgfpathmoveto{\namepoint}
-    
   }
 }
 
@@ -255,11 +183,8 @@
   \inheritanchor[from=c4 rectangle]{base}%
   \inheritanchor[from=c4 rectangle]{base west}%
   \inheritanchor[from=c4 rectangle]{base east}%
-  \inheritanchor[from=c4 rectangle]{name}%
-  \inheritanchor[from=c4 rectangle]{description}%
-  \inheritanchor[from=c4 rectangle]{technology}%
-  \inheritanchorborder[from=c4 rectangle]
-  \nodeparts{name,technology,description}%
+  \inheritanchor[from=c4 rectangle]{text}%
+  \inheritanchorborder[from=c4 rectangle]%
 
   \backgroundpath{% this is new
     % store lower right in xa/ya and upper right in xb/yb
@@ -271,10 +196,6 @@
     \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
     \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
     \pgfpathclose
-
-    \namepoint
-    \pgfpathmoveto{\namepoint}
-    
   }
 
 

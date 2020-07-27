@@ -16,29 +16,28 @@
   % \draw[c4personcolor] (0,0) -- (1,1) -- (2,-1) -- cycle;
   
   \draw node[c4 system] (ibs) {
-    \nodepart{name}\textbf{Internet Banking System}
-    \nodepart{technology}\textit{[Software System]}
-    \nodepart[align=left]{description}Allows customers to view information
+    \textbf{Internet Banking System}\\
+    \textit{[Software System]}\\
+    Allows customers to view information
     about their bank accounts, and make payments};
 
   \draw node[c4 person, above=of ibs] (user) {
-    \nodepart{name}\textbf{Internet Banking User}
-    \nodepart{technology}\textit{[Person]}
-    \nodepart[align=left]{description}Customers will view
+    \textbf{Internet Banking User}\\
+    \textit{[Person]}\\
+    Customers will view
     information about their bank
     accounts, and make payments};
   
   \draw node[c4 existing system, right=of ibs] (es) {
-    \nodepart{name}\textbf{E-Mail System}
-    \nodepart{technology}\textit{[Software System]}
-    \nodepart[align=left]{description}The internal Microsoft Exchange
+    \textbf{E-Mail System}\\
+    \textit{[Software System]}\\
+    The internal Microsoft Exchange
     Email System};
 
   \draw node[c4 existing system, below=of ibs] (mbs) {
-    \nodepart{name}\textbf{Mainframe Banking
-      System}
-    \nodepart{technology}\textit{[Software System]}
-    \nodepart[align=left]{description}Stores all of the core banking
+    \textbf{Mainframe Banking System}
+    \textit{[Software System]}
+    Stores all of the core banking
     information about customers,
     accounts, transactions, etc.};
 
@@ -58,16 +57,16 @@
   \begin{tikzpicture}
     \Huge
     \node[name=s,c4 existing system]
-    {\nodepart{name}\textbf{name}
-      \nodepart{technology}\textit{[technology]}
-      \nodepart{description}Description on\\multiple lines};
+    {\textbf{name}\\
+     \textit{[technology]}\\
+     Description on\\multiple lines};
 
     \foreach \anchor/\placement in{
       north west/above left, north/above, north east/above right, west/left, center/below, east/right,
       mid west/right, mid/above, mid east/left,
       base west/left, base/below, base east/right,
       south west/below left, south/below, south east/below right,
-      name/left, technology/left, description/left, 130/above}
+      text/left, 130/above}
     \draw[shift=(s.\anchor)] plot[mark=x] coordinates{(0,0)}
     node[\placement] {\scriptsize\texttt{(s.\anchor)}};
   \end{tikzpicture}
@@ -78,16 +77,16 @@
   \begin{tikzpicture}
     \Huge
     \node[name=s,c4 existing system]
-    {\nodepart[anchor=south west]{name}\bf A very extremely long name
-      \nodepart{technology}\it {[technology]}
-      \nodepart[anchor=south west]{description}Description on\\multiple lines};
+    {\bf A very extremely long name\\
+     \it {[technology]}\\
+     Description on\\multiple lines};
 
     \foreach \anchor/\placement in{
       north west/above left, north/above, north east/above right, west/left, center/below, east/right,
       mid west/right, mid/above, mid east/left,
       base west/left, base/below, base east/right,
       south west/below left, south/below, south east/below right,
-      name/left, technology/left, description/left, 130/above}
+      text/left, 130/above}
     \draw[shift=(s.\anchor)] plot[mark=x] coordinates{(0,0)}
     node[\placement] {\scriptsize\texttt{(s.\anchor)}};
   \end{tikzpicture}
@@ -98,16 +97,16 @@
   \begin{tikzpicture}
     \Huge
     \node[name=s,c4 existing person]
-    {\nodepart{name}\textbf{name}
-      \nodepart{technology}\textit{[Person]}
-      \nodepart{description}Description on\\multiple lines};
+    {\textbf{name}\\
+      \textit{[Person]}\\
+      Description on\\multiple lines};
 
     \foreach \anchor/\placement in{
       north west/above left, north/above, north east/above right, west/left, center/below, east/right,
       mid west/right, mid/above, mid east/left,
       base west/left, base/below, base east/right,
       south west/below left, south/below, south east/below right,
-      name/left, technology/left, description/left, 130/above}
+      text/left, 130/above}
     \draw[shift=(s.\anchor)] plot[mark=x] coordinates{(0,0)}
     node[\placement] {\scriptsize\texttt{(s.\anchor)}};
   \end{tikzpicture}
