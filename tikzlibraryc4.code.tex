@@ -165,18 +165,17 @@
   }
 }
 
+
+% top of cylinder is an oval of y-radius 1cm
 \pgfdeclareshape{c4 person}{
   \inheritsavedanchors[from=c4 rectangle] % this is nearly a rectangle
   \inheritanchorborder[from=c4 rectangle]
   \inheritanchor[from=c4 rectangle]{center}%
-  \inheritanchor[from=c4 rectangle]{north}%
-  \inheritanchor[from=c4 rectangle]{north east}%
   \inheritanchor[from=c4 rectangle]{east}%
   \inheritanchor[from=c4 rectangle]{south east}%
   \inheritanchor[from=c4 rectangle]{south}%
   \inheritanchor[from=c4 rectangle]{south west}%
   \inheritanchor[from=c4 rectangle]{west}%
-  \inheritanchor[from=c4 rectangle]{north west}%
   \inheritanchor[from=c4 rectangle]{mid west}%
   \inheritanchor[from=c4 rectangle]{mid}%
   \inheritanchor[from=c4 rectangle]{mid east}%
@@ -186,19 +185,40 @@
   \inheritanchor[from=c4 rectangle]{text}%
   \inheritanchorborder[from=c4 rectangle]%
 
+  \anchor{north} {%
+    \northeast%
+   \pgf@x=0cm%
+    \advance\pgf@y by 2cm%
+  }%
+
+  \anchor{north east} {%
+    \northeast%
+    \advance\pgf@y by 1cm%
+  }%
+
+  \anchor{north west} {%
+    \northeast%
+    \advance\pgf@y by 1cm%
+    \pgf@x=-\pgf@x
+  }%
+
   \backgroundpath{% this is new
-    % store lower right in xa/ya and upper right in xb/yb
+    % store lower right in xa/ya and upper right in xb/yb, width in xc
+
+    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y \pgf@xc=\pgf@x
     \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+    \advance\pgf@yb by 1cm
+    \advance\pgf@xc by -\pgf@x
+    \pgf@xc = 0.5\pgf@xc
     % construct main path
     \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
     \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
-    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+    \pgfpatharc{180}{0}{\pgf@xc and 1 cm}
+%    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
     \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+    \pgfpatharc{0}{180}{\pgf@xc and -1 cm}
     \pgfpathclose
   }
-
-
 }
 
 \tikzset{
@@ -214,12 +234,12 @@ align=justify, inner sep=1em, text width=13em%
 },
 c4 person/.style={%
 shape=c4 person, draw, fill=c4personcolor,%
-text=white, draw=c4personcolor!80!black, rounded corners=1ex,%
+text=white, draw=c4personcolor!80!black,%
 align=justify, inner sep=1em, text width=13em%
 },
 c4 existing person/.style={%
 shape=c4 person, draw, fill=c4existingpersoncolor,%
-text=white, draw=c4existingpersoncolor!80!black, rounded corners=1ex,%
+text=white, draw=c4existingpersoncolor!80!black,%
 align=justify, inner sep=1em, text width=13em%
 }
 }
