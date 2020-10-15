@@ -45,6 +45,13 @@
     }
   };
 
+  \draw node[c4 database, right=of mbs] (db) {
+    \c4text{Database} {SQL} {
+      Data Store handling data and
+      transactions for Banking System
+    }
+  };
+
   \draw [->, draw=c4existingsystemcolor!80!black, thick] (ibs.east) to
   [edge label=Sends E-Mail using] (es.west);
 
@@ -53,6 +60,9 @@
 
   \draw [->, draw=c4existingsystemcolor!80!black, thick] (user.south) to [ edge
   label=Uses] (ibs.north);
+
+  \draw [->, draw=c4existingsystemcolor!80!black, thick] (mbs.east) to [ edge
+  label=Uses] (db.west);
 
 
 

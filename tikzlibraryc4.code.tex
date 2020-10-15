@@ -166,7 +166,8 @@
 }
 
 
-% top of cylinder is an oval of y-radius 1cm
+% top of cylinder is an oval of y-radius 0.5cm
+% TODO: fix anchor body
 \pgfdeclareshape{c4 person}{
   \inheritsavedanchors[from=c4 rectangle] % this is nearly a rectangle
   \inheritanchorborder[from=c4 rectangle]
@@ -187,18 +188,24 @@
 
   \anchor{north} {%
     \northeast%
-   \pgf@x=0cm%
-    \advance\pgf@y by 2cm%
-  }%
+    \pgf@x=0cm%
+    \advance\pgf@y by 1cm%
+  }
 
+  \anchor{south} {%
+    \southwest%
+    \pgf@x=0cm%
+    \advance\pgf@y by -0.5cm%
+  }
+  
   \anchor{north east} {%
     \northeast%
-    \advance\pgf@y by 1cm%
+    \advance\pgf@y by 0.5cm%
   }%
 
   \anchor{north west} {%
     \northeast%
-    \advance\pgf@y by 1cm%
+    \advance\pgf@y by 0.5cm%
     \pgf@x=-\pgf@x
   }%
 
@@ -207,40 +214,116 @@
 
     \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
     \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-    \advance\pgf@yb by 1cm
+    \advance\pgf@yb by 0.5cm
     \pgf@xc = 0.5\pgf@xc
     % construct main path
     \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
     \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
-    \pgfpatharc{180}{0}{\pgf@xb and 1 cm}
+    \pgfpatharc{180}{0}{\pgf@xb and 0.5 cm}
 %    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
     \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
-    \pgfpatharc{0}{180}{\pgf@xb and -1 cm}
+    \pgfpatharc{0}{180}{\pgf@xb and -0.5 cm}
     \pgfpathclose
+  }
+  \beforebackgroundpath{
+    \pgfmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+    \pgfpatharc{0}{180}{\pgf@xb and -0.5cm}
+    \pgfusepath{stroke}
+  }
+}
+
+% top of cylinder is an oval of y-radius 0.5cm
+% TODO: fix anchor body
+\pgfdeclareshape{c4 cylinder}{
+  \inheritsavedanchors[from=c4 rectangle] % this is nearly a rectangle
+  \inheritanchorborder[from=c4 rectangle]
+  \inheritanchor[from=c4 rectangle]{center}%
+  \inheritanchor[from=c4 rectangle]{east}%
+  \inheritanchor[from=c4 rectangle]{south east}%
+  \inheritanchor[from=c4 rectangle]{south}%
+  \inheritanchor[from=c4 rectangle]{south west}%
+  \inheritanchor[from=c4 rectangle]{west}%
+  \inheritanchor[from=c4 rectangle]{mid west}%
+  \inheritanchor[from=c4 rectangle]{mid}%
+  \inheritanchor[from=c4 rectangle]{mid east}%
+  \inheritanchor[from=c4 rectangle]{base}%
+  \inheritanchor[from=c4 rectangle]{base west}%
+  \inheritanchor[from=c4 rectangle]{base east}%
+  \inheritanchor[from=c4 rectangle]{text}%
+  \inheritanchorborder[from=c4 rectangle]%
+
+  \anchor{north} {%
+    \northeast%
+    \pgf@x=0cm%
+    \advance\pgf@y by 1cm%
+  }
+
+  \anchor{south} {%
+    \southwest%
+    \pgf@x=0cm%
+    \advance\pgf@y by -0.5cm%
+  }
+  
+  \anchor{north east} {%
+    \northeast%
+    \advance\pgf@y by 0.5cm%
+  }%
+
+  \anchor{north west} {%
+    \northeast%
+    \advance\pgf@y by 0.5cm%
+    \pgf@x=-\pgf@x
+  }%
+
+  \backgroundpath{% this is new
+    % store lower right in xa/ya and upper right in xb/yb
+
+    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+    \advance\pgf@yb by 0.5cm
+    \pgf@xc = 0.5\pgf@xc
+    % construct main path
+    \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+    \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+    \pgfpatharc{180}{0}{\pgf@xb and 0.5 cm}
+%    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+    \pgfpatharc{0}{180}{\pgf@xb and -0.5 cm}
+    \pgfpathclose
+  }
+  \beforebackgroundpath{
+    \pgfmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+    \pgfpatharc{0}{180}{\pgf@xb and -0.5cm}
+    \pgfusepath{stroke}
   }
 }
 
 \tikzset{
 c4 system/.style={%
-shape=c4 rectangle, draw, fill=c4systemcolor,%
+shape=c4 rectangle, draw, fill=c4systemcolor, line width=1pt,%
 text=white, draw=c4systemcolor!80!black, rounded corners=1ex,%
 align=justify, inner sep=1em, text width=13em%
 },
 c4 existing system/.style={%
-shape=c4 rectangle, draw, fill=c4existingsystemcolor,%
+shape=c4 rectangle, draw, fill=c4existingsystemcolor, line width=1pt,%
 text=white, draw=c4existingsystemcolor!80!black, rounded corners=1ex,%
 align=justify, inner sep=1em, text width=13em%
 },
 c4 person/.style={%
-shape=c4 person, draw, fill=c4personcolor,%
+shape=c4 person, draw, fill=c4personcolor, line width=1pt,%
 text=white, draw=c4personcolor!80!black,%
 align=justify, inner sep=1em, text width=13em%
 },
 c4 existing person/.style={%
-shape=c4 person, draw, fill=c4existingpersoncolor,%
+shape=c4 person, draw, fill=c4existingpersoncolor, line width=1pt,%
 text=white, draw=c4existingpersoncolor!80!black,%
 align=justify, inner sep=1em, text width=13em%
-}
+},
+c4 database/.style={%
+shape=c4 cylinder, draw, fill=c4systemcolor, line width=1pt,%
+text=white, draw=c4systemcolor!80!black,%
+align=justify, inner sep=1em, text width=13em%
+},
 }
 
 
