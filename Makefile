@@ -1,2 +1,3 @@
 examples.pdf: examples.tex tikzlibraryc4.code.tex
-	pdflatex examples
+	pdflatex -halt-on-error examples
+
