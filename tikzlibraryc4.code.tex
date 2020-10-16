@@ -186,27 +186,34 @@
   \inheritanchor[from=c4 rectangle]{text}%
   \inheritanchorborder[from=c4 rectangle]%
 
+  \saveddimen{\topradius}{%
+    \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/pgf/inner ysep}}%
+  }%
+
   \anchor{north} {%
+    \topradius \pgf@xc=\pgf@x%
     \northeast%
     \pgf@x=0cm%
-    \advance\pgf@y by 1cm%
+    \advance\pgf@y by \pgf@xc
   }
 
   \anchor{south} {%
+    \topradius \pgf@xc=\pgf@x%
     \southwest%
     \pgf@x=0cm%
-    \advance\pgf@y by -0.5cm%
+    \advance\pgf@y by -0.5\pgf@xc%
   }
   
   \anchor{north east} {%
+    \topradius \pgf@xc=\pgf@x%
     \northeast%
-    \advance\pgf@y by 0.5cm%
+    \advance\pgf@y by 0.5\pgf@xc%
   }%
 
   \anchor{north west} {%
+    \topradius \pgf@xc=\pgf@x%
     \northeast%
-    \advance\pgf@y by 0.5cm%
-    \pgf@x=-\pgf@x
+    \advance\pgf@y by 0.5\pgf@xc%
   }%
 
   \backgroundpath{% this is new
@@ -214,20 +221,21 @@
 
     \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
     \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-    \advance\pgf@yb by 0.5cm
+    \advance\pgf@yb by 0.5\pgfshapeinnerysep
     \pgf@xc = 0.5\pgf@xc
     % construct main path
     \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
     \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
-    \pgfpatharc{180}{0}{\pgf@xb and 0.5 cm}
+    \pgfpatharc{180}{0}{\pgf@xb and 0.5\pgfshapeinnerysep}
 %    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
     \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
-    \pgfpatharc{0}{180}{\pgf@xb and -0.5 cm}
+    \pgfpatharc{0}{180}{\pgf@xb and -0.5\pgfshapeinnerysep}
     \pgfpathclose
   }
+  
   \beforebackgroundpath{
     \pgfmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}
-    \pgfpatharc{0}{180}{\pgf@xb and -0.5cm}
+    \pgfpatharc{0}{180}{\pgf@xb and -0.5\pgfshapeinnerysep}
     \pgfusepath{stroke}
   }
 }
@@ -252,48 +260,53 @@
   \inheritanchor[from=c4 rectangle]{text}%
   \inheritanchorborder[from=c4 rectangle]%
 
+  \saveddimen\topradius{%
+    \pgfmathsetlength\pgf@x{\pgfkeysvalueof{/pgf/inner ysep}}%
+  }
+
   \anchor{north} {%
     \northeast%
     \pgf@x=0cm%
-    \advance\pgf@y by 1cm%
+    \advance\pgf@y by \topradius%
+    \advance\pgf@y by \topradius%
   }
 
   \anchor{south} {%
     \southwest%
     \pgf@x=0cm%
-    \advance\pgf@y by -0.5cm%
+    \advance\pgf@y by -\topradius%
   }
   
   \anchor{north east} {%
     \northeast%
-    \advance\pgf@y by 0.5cm%
-  }%
+    \advance\pgf@y by \topradius%
+  }
 
   \anchor{north west} {%
     \northeast%
-    \advance\pgf@y by 0.5cm%
-    \pgf@x=-\pgf@x
-  }%
+    \advance\pgf@y by \topradius%
+    \pgf@x=-\pgf@x%
+  }
 
   \backgroundpath{% this is new
     % store lower right in xa/ya and upper right in xb/yb
 
     \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
     \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-    \advance\pgf@yb by 0.5cm
-    \pgf@xc = 0.5\pgf@xc
+    \advance\pgf@yb by \topradius
     % construct main path
     \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
     \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
-    \pgfpatharc{180}{0}{\pgf@xb and 0.5 cm}
+    \pgfpatharc{180}{0}{\pgf@xb and \topradius}
 %    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
     \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
-    \pgfpatharc{0}{180}{\pgf@xb and -0.5 cm}
+    \pgfpatharc{0}{180}{\pgf@xb and -\topradius}
     \pgfpathclose
   }
+  
   \beforebackgroundpath{
     \pgfmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}
-    \pgfpatharc{0}{180}{\pgf@xb and -0.5cm}
+    \pgfpatharc{0}{180}{\pgf@xb and -\topradius}
     \pgfusepath{stroke}
   }
 }
