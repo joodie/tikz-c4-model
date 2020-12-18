@@ -1,3 +1,5 @@
+% -*- mode: latex; -*-
+
 \usetikzlibrary{c4colors}
 
 \pgfdeclareshape{c4 rectangle}{%
@@ -52,8 +54,8 @@
     %
     \pgfmathsetlength\pgf@yb{\pgfkeysvalueof{/pgf/minimum height}}%
     \ifdim\pgf@y<\pgf@yb%
-      % yes, too small. Enlarge...
-      \pgf@y=\pgf@yb%
+    % yes, too small. Enlarge...
+    \pgf@y=\pgf@yb%
     \fi%
     % south y is full height minus top .. halfway nodeparttextbox
     \pgf@y=-\pgf@y
@@ -170,7 +172,7 @@
     \pgf@x=0cm%
     \advance\pgf@y by -0.5\pgf@xc%
   }
-  
+
   \anchor{north east} {%
     \topradius \pgf@xc=\pgf@x%
     \northeast%
@@ -196,12 +198,12 @@
     \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
     \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
     \pgfpatharc{180}{0}{\pgf@xb and 0.5\pgfshapeinnerysep}
-%    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+    % \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
     \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
     \pgfpatharc{0}{180}{\pgf@xb and -0.5\pgfshapeinnerysep}
     \pgfpathclose
   }
-  
+
   \beforebackgroundpath{
     \pgfmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}
     \pgfpatharc{0}{180}{\pgf@xb and -0.5\pgfshapeinnerysep}
@@ -213,7 +215,7 @@
 % TODO: fix anchor body
 \pgfdeclareshape{c4 cylinder}{
   \inheritsavedanchors[from=c4 rectangle] % this is nearly a rectangle
-%  \inheritanchorborder[from=c4 rectangle]
+  % \inheritanchorborder[from=c4 rectangle]
   \inheritanchor[from=c4 rectangle]{center}%
   \inheritanchor[from=c4 rectangle]{east}%
   \inheritanchor[from=c4 rectangle]{south east}%
@@ -245,7 +247,7 @@
     \pgf@x=0cm%
     \advance\pgf@y by -\topradius%
   }
-  
+
   \anchor{north east} {%
     \northeast%
     \advance\pgf@y by \topradius%
@@ -267,12 +269,12 @@
     \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
     \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
     \pgfpatharc{180}{0}{\pgf@xb and \topradius}
-%    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+    % \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
     \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
     \pgfpatharc{0}{180}{\pgf@xb and -\topradius}
     \pgfpathclose
   }
-  
+
   \beforebackgroundpath{
     \pgfmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}
     \pgfpatharc{0}{180}{\pgf@xb and -\topradius}
@@ -287,31 +289,31 @@
 }
 
 \tikzset{
-c4 system/.style={%
-shape=c4 rectangle, draw, fill=c4systemcolor, line width=1pt,%
-text=white, draw=c4systemcolor!80!black, rounded corners=1ex,%
-align=justify, inner sep=1em, text width=13em%
-},
-c4 existing system/.style={%
-shape=c4 rectangle, draw, fill=c4existingsystemcolor, line width=1pt,%
-text=white, draw=c4existingsystemcolor!80!black, rounded corners=1ex,%
-align=justify, inner sep=1em, text width=13em%
-},
-c4 person/.style={%
-shape=c4 person, draw, fill=c4personcolor, line width=1pt,%
-text=white, draw=c4personcolor!80!black,%
-align=justify, inner sep=1em, text width=13em%
-},
-c4 existing person/.style={%
-shape=c4 person, draw, fill=c4existingpersoncolor, line width=1pt,%
-text=white, draw=c4existingpersoncolor!80!black,%
-align=justify, inner sep=1em, text width=13em%
-},
-c4 database/.style={%
-shape=c4 cylinder, draw, fill=c4systemcolor, line width=1pt,%
-text=white, draw=c4systemcolor!80!black,%
-align=justify, inner sep=1em, text width=13em%
-},
+  c4 system/.style={%
+    shape=c4 rectangle, draw, fill=c4systemcolor, line width=1pt,%
+    text=white, draw=c4systemcolor!80!black, rounded corners=1ex,%
+    align=justify, inner sep=1em, text width=13em%
+  },
+  c4 existing system/.style={%
+    shape=c4 rectangle, draw, fill=c4existingsystemcolor, line width=1pt,%
+    text=white, draw=c4existingsystemcolor!80!black, rounded corners=1ex,%
+    align=justify, inner sep=1em, text width=13em%
+  },
+  c4 person/.style={%
+    shape=c4 person, draw, fill=c4personcolor, line width=1pt,%
+    text=white, draw=c4personcolor!80!black,%
+    align=justify, inner sep=1em, text width=13em%
+  },
+  c4 existing person/.style={%
+    shape=c4 person, draw, fill=c4existingpersoncolor, line width=1pt,%
+    text=white, draw=c4existingpersoncolor!80!black,%
+    align=justify, inner sep=1em, text width=13em%
+  },
+  c4 database/.style={%
+    shape=c4 cylinder, draw, fill=c4systemcolor, line width=1pt,%
+    text=white, draw=c4systemcolor!80!black,%
+    align=justify, inner sep=1em, text width=13em%
+  },
 }
 
 
