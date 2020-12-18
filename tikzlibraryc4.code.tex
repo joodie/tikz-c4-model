@@ -1,39 +1,6 @@
-% Colours
+\usetikzlibrary{c4colors}
 
-\definecolor{c4personcolor}{HTML}{08427B}
-\definecolor{c4systemcolor}{HTML}{1178bd}
-\definecolor{c4existingsystemcolor}{HTML}{999999}
-\definecolor{c4existingpersoncolor}{HTML}{999999}
-\definecolor{c4containercolor}{HTML}{3c7fc0}
-\definecolor{c4componentcolor}{HTML}{85bbf0}
-
-% A C4 node is constructed vertically as follows:
-%
-% +-----------------
-% | head decoration      - horizontal line / head / browser bar...
-% | inner ysep
-% | nodeparttext
-% | inner ysep
-% | foot decoration      - just a line
-% +---------------
-%
-%
-% north y is at 0.5\ht\nodeparttextebox + inner
-% ysep
-%
-% south y is at 0.5\ht\nodeparttextbox + \dpnodeparttextbox +
-% inner yspep
-%
-%
-% when a minimum height is set, this means that center point
-% is at minimum height - (headheight + footheight + 2 ysep) / 2
-%
-% For the basic rectangle shapes, foot and head decorations are just
-% lines
-%
-% The mininum height 
-
-\pgfdeclareshape{c4 rectangle}{
+\pgfdeclareshape{c4 rectangle}{%
   % Nodes are centered on their label (text part)
   % Text parts are horizontally centered
   \savedanchor\northeast{%
@@ -167,7 +134,7 @@
 
 
 % top of cylinder is an oval of y-radius 0.5cm
-% TODO: fix anchor body
+% TODO: fix anchorbody
 \pgfdeclareshape{c4 person}{
   \inheritsavedanchors[from=c4 rectangle] % this is nearly a rectangle
   \inheritanchorborder[from=c4 rectangle]
@@ -221,7 +188,9 @@
 
     \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
     \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+
     \advance\pgf@yb by 0.5\pgfshapeinnerysep
+    % FIXME: pgf@xc is never set!
     \pgf@xc = 0.5\pgf@xc
     % construct main path
     \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
@@ -244,7 +213,7 @@
 % TODO: fix anchor body
 \pgfdeclareshape{c4 cylinder}{
   \inheritsavedanchors[from=c4 rectangle] % this is nearly a rectangle
-  \inheritanchorborder[from=c4 rectangle]
+%  \inheritanchorborder[from=c4 rectangle]
   \inheritanchor[from=c4 rectangle]{center}%
   \inheritanchor[from=c4 rectangle]{east}%
   \inheritanchor[from=c4 rectangle]{south east}%
@@ -308,6 +277,12 @@
     \pgfmoveto{\pgfpoint{\pgf@xb}{\pgf@yb}}
     \pgfpatharc{0}{180}{\pgf@xb and -\topradius}
     \pgfusepath{stroke}
+  }
+
+  \anchorborder{%
+    \@tempdima=\pgf@x%
+    \@tempdimb=\pgf@y%
+    \pgfpointborderrectangle{\pgfpoint{\@tempdima}{\@tempdimb}}{\northeast}%
   }
 }
 
